@@ -9,7 +9,7 @@
 	Pois quero que o player ande 3 pixes por clique
 	*/
 
-	velocidade = 3
+	velocidade = 4.5
 
 	/*
 	Mas agora eu quero criar uma variavel que armazene- 

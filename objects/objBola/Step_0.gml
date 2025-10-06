@@ -106,9 +106,84 @@ else{
 	obj The object position to check for instances of.
 	
 	Tradução:
+	função instance_place(x:valor real, y: valor real, obj:Id. do 
+	elemento do TileMap ou uma imagem do Asset. ou um objeto constante-
+	-todos os objetos ou um vetor de objetos)retorno é o ID da instancia
+	com essa função, você consegue checar uma posição para uma colisão com outra instancia-
+	ou todas as instancias de um objeto usado a marcará de colisão de uma instacia-
+	-desta compilação do código para checar
+	X a posição x para checar a instancia
+	Y a posição y para checar a instancia
+	obj a posição objeto para checar a instancia
+	
+	agora que sabemos usar tanto o place_meeting() quanto o instance_place(), agora vamos programar
+	a colisão com objBloco,de dependendo de onde colidimos, iremos para a direção oposta 
 	*/
+	
+	//Primeiro, checar onde aconteceu a colisão
+	//Colisão a esquerda
+	if place_meeting(x - velocidade, y, objBloco){
+		//Agora que sabemos que ouve uma colisão,iremos pegar o ID da instancia que colidimos
+		//Vamos criar uma variavel e usar ela como referencia
+		blocoColidido = instance_place(x - velocidade, y, objBloco)
+		
+		/*
+		agora que sabemos qual é o bloco, iremos destrui-lo, para isto, usaremos a função 
+		instance_destroy()
+		Descrição:
+		function instance_destroy([id: Asset.GMObj OR Id. instance OR Constant.All],-
+		-[execute_event_flag: Bool]) -> Unfined
+		You call this function whenever you whish to destroy an instance, -
+		normally triggering a Destroy event and also a claen Up Event.
+		id Theinstance ID or object_index to destroy(optional,default is the calling instance)
+		execute_evente_flag Set to True or False to perform the destroy event or -
+		not(optional, default is true)
+		
+		Tadução:
+		função instance_destroy([id: objeto or ID do objeto ou constante todos os objetos]; -
+		- [execute_event_flag: valor booleano])retorno vaziu ou indefinido
+		Você chama esta função quando desejardestruir uma instancia, normalmente resulta um evento de
+		Destruição e também um evento de Limpeza
+		id o ID da instancia ou o index do objeto para destruir(opcional,pois o padrão é destruir a -
+		- instancia que chamou a função)
+		execute_event_flag configura para o verdadeiro ou falso para performar o evento de destruição 
+		ou não(opcional, pois o padrão é verdadeiro)
+		
+		ou seja, por isto não colocamos para destruiro objBloco direto, pois deste jeito iriamos -
+		- destruir todas as instancias do objBloco, agora, Passando ele para a variavel blocoColidido
+		destruimos apenas este bloco
+		)
+		*/
+		instance_destroy(blocoColidido)
+		
+		//E agora invertemos a direção
+		//Como estavamos na esquerda, agora irá para direita
+		direcaoHorizontal = 1
+	}
+	
+	// Colisão na direita
+	if place_meeting(x + velocidade,y, objBloco){
+		blocoColidido = instance_place(x + velocidade,y,objBloco)
+		instance_destroy(blocoColidido)
+		direcaoHorizontal = - 1
+	}
+	
+	//Colisão encima
+	if place_meeting(x, y - velocidade,objBloco){
+		blocoColidido = instance_place(x,y - velocidade,objBloco)
+		instance_destroy(blocoColidido)
+		direcaoVertical = 1
+	}
+	
+	//Colisão embaixo
+	if place_meeting(x, y + velocidade,objBloco){
+		blocoColidido = instance_place(x,y + velocidade,objBloco)
+		instance_destroy(blocoColidido)
+		direcaoVertical = -1
+	}
+	//lembrando que o padrão está seguindo os dizeres na colisão a esquerda
 }
-//No fim soma a direções em suas respectivas variaveis vezes
+//No fim soma as direções em suas respectivas variaveis vezes
 //a velocidade
 
 x += direcaoHorizontal * velocidade
