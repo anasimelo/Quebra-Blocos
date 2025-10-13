@@ -16,6 +16,10 @@ Mas, temos que fazer uma validação para isto, então vamos criar uma
 // Jeito "certo"
 //Então caso o jogo não esteja iniciado, iremos seguir o player
 //E esperar a tecla para cima ser apertada
+
+
+//Para vermos a animação do jogo começando,vamos iniciar o jogo apenas
+//quando todos os blocos estiverem na posição certa
 if ! global.isStart{
 	x = objPlayer.x
 	y = objPlayer.y -10
@@ -65,11 +69,11 @@ else{
 		*/
 	//Verificar a colisão na esquerda
 	if place_meeting(x - 3, y,objColisao){
-		direcaoHorizontal = 1
+		//direcaoHorizontal = 1
 	}
 	//Verificar a colisão na direita
 	if place_meeting(x + 3,y, objColisao){
-		direcaoHorizontal = - 1
+		//direcaoHorizontal = - 1
 	}
 	
 	//Verificar colisão acima
@@ -77,10 +81,6 @@ else{
 		direcaoVertical = 1
 	}
 	
-	//Com o objPlayer
-	if place_meeting(x, y + velocidade, objPlayer){
-		direcaoVertical = -1
-	}
 	
 	//começo da destruição dos blocos
 	/*
@@ -164,6 +164,20 @@ else{
 	// Colisão na direita
 	if place_meeting(x + velocidade,y, objBloco){
 		blocoColidido = instance_place(x + velocidade,y,objBloco)
+		distancia = x - blocoColidido.x
+		
+		if distancia >= -10 and distancia <= 10{
+			direcaoHorizontal= 0.2 * sign(distancia)
+		}
+		else if distancia >= -20 and distancia <= 20 {
+			direcaoHorizontal = 0.5 * sign(distancia)
+		}
+		else if distancia >= -30 and distancia <= 30 {
+			direcaoHorizontal = 1 * sign(distancia)	
+		}
+		else {
+			direcaoHorizontal = 1.2 * sign(distancia)
+		}
 		instance_destroy(blocoColidido)
 		direcaoHorizontal = - 1
 	}
@@ -171,6 +185,20 @@ else{
 	//Colisão encima
 	if place_meeting(x, y - velocidade,objBloco){
 		blocoColidido = instance_place(x,y - velocidade,objBloco)
+		distancia = x -blocoColidido.x
+		
+		if distancia >= -10 and distancia <= 10{
+			direcaoHorizontal= 0.2 * sign(distancia)
+		}
+		else if distancia >= -20 and distancia <= 20 {
+			direcaoHorizontal = 0.5 * sign(distancia)
+		}
+		else if distancia >= -30 and distancia <= 30 {
+			direcaoHorizontal = 1 * sign(distancia)	
+		}
+		else {
+			direcaoHorizontal = 1.2 * sign(distancia)
+		}
 		instance_destroy(blocoColidido)
 		direcaoVertical = 1
 	}
@@ -178,11 +206,99 @@ else{
 	//Colisão embaixo
 	if place_meeting(x, y + velocidade,objBloco){
 		blocoColidido = instance_place(x,y + velocidade,objBloco)
+		distancia = x - blocoColidido.x
+		
+		if distancia >= -10 and distancia <= 10{
+			direcaoHorizontal= 0.2 * sign(distancia)
+		}
+		else if distancia >= -20 and distancia <= 20 {
+			direcaoHorizontal = 0.5 * sign(distancia)
+		}
+		else if distancia >= -30 and distancia <= 30 {
+			direcaoHorizontal = 1 * sign(distancia)	
+		}
+		else {
+			direcaoHorizontal = 1.2 * sign(distancia)
+		}
 		instance_destroy(blocoColidido)
 		direcaoVertical = -1
 	}
 	//lembrando que o padrão está seguindo os dizeres na colisão a esquerda
 }
+
+/*
+o que são regiões?
+é uma forma de organizar o código, de modo que ajuda a identificar
+varios processos parecidos ou relacionados em um mesmo lugar
+a sintax é
+#region(nome da região)
+*****código
+#endregion
+*/
+#region Interação com o player
+	//mandando bola para cima
+	//Com o objPlayer
+	if place_meeting(x, y + velocidade, objPlayer){
+		direcaoVertical = -1
+		/*
+		dentro do jogo queremos que quanto mais no centro,menor a velocidade
+		na horizontal ele ganha, e quanto mais nas pontas,mais velocidade na
+		horizontal
+		ou seja,como o x dos objetos já estão no meio dos sprites
+		ja sabemos que houve colisão
+		se nos pegarmos o x dos dois veremos se:
+		caso a distancia entre os dois seja menor que 10 pixes,a direção
+		horizontal sera pequena (0.2)
+		caso seja uma distancia de até 20 pixes,sera media (0.5)
+		caso seja 30,sera normal(1)
+		mais que isso alta (1.2)
+		
+		para armazenar usaremos a variavel
+		*/
+		/*executamos e vimos que um dos erros é sempre ir para direita
+		para corrigirmos isso,multiplicaremos o numero ao ives da distancia
+		assim,conseguiremos ver se a distansia esta indo para direita ou para
+		esquerda,mas se apenas multiplicarmos veremos que ela ira muito longe
+		pois so quisemos mudar a direção,basta multiplicarmos por -1
+		se for na esquerda,mas para não almentar o código
+		usaremos a função sign
+		Descrição:
+		function sign(n: real) -> real
+		this function returns whether a number is positive,negative
+		or neither and returns 1, -1, 0 respectively.
+		n the number to get the sign of
+		
+		tradução:
+		função sign(n: número real) retorno tipo real
+		essa função retorna quando um número é positivo, negativo
+		ou nulo e retorna 1, -1 e o 0 respectivamente
+		n é o número para pegar sinal
+		
+		ou seja, multiplicamos o valor da direção vezes o valor da função 
+		sing usando a distancia como parametro
+		*/
+		
+		
+		
+		distancia = x - objPlayer.x
+		
+		if distancia >= -10 and distancia <= 10{
+			direcaoHorizontal= 0.2 * sign(distancia)
+		}
+		else if distancia >= -20 and distancia <= 20 {
+			direcaoHorizontal = 0.5 * sign(distancia)
+		}
+		else if distancia >= -30 and distancia <= 30 {
+			direcaoHorizontal = 1 * sign(distancia)	
+		}
+		else {
+			direcaoHorizontal = 1.2 * sign(distancia)
+		}
+	}
+	    /* podemos fazer isso com o blocos
+		para isso é só copiar essa lógica e trocar o objPlayer
+		pelo Id do bloco,e por enquanto apenas nas condições verticais dos blocos*/
+#endregion
 //No fim soma as direções em suas respectivas variaveis vezes
 //a velocidade
 

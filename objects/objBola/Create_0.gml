@@ -43,6 +43,23 @@ if place_meeting(x, y + 10, objPlayer){
 	direcaoVertical = 0
 	direcaoHorizontal = 0
 }
+else{
+	//quando criarmos a bolinha pelo bloco
+	// ela vai para uma direção aleatoria
+	direcaoVertical = irandom_range(-1, 1)
+	direcaoHorizontal = irandom_range(-1, 1)
+	
+	/* uma chance em 3 de vir mais rápida e duas em 3 de ir 
+	para a direita*/
+	if direcaoHorizontal == 0{
+		direcaoHorizontal = 1.2
+	}
+	
+	//duas chances em três de iniciar subindo
+	if direcaoVertical == 0{
+		direcaoVertical = -1
+	}
+}
 /*
 E também queremos que toda vez que o player perca
 Seja criada uma bolinha acima do player
