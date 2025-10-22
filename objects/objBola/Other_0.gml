@@ -1,3 +1,7 @@
+if global.isFimJogo{
+	exit
+}
+
 /*
 o outside room é ativado toda vez que a instacia sai da sala
 como temos apenas uma direção possivel para sair 
@@ -11,6 +15,14 @@ nós queremos que toda vez que a bolinha sair da tela
 então, primeiro vamos começar pelo mais facil, diminuir a 
 quantidade de vidas em 1
 */
+
+global.quantBolinhas--
+instance_create_layer(x, room_height - 32, "Instances", objDano)
+instance_destroy()
+
+if global.quantBolinhas > 0{
+	exit
+}
 
 global.vidas--
 
@@ -87,3 +99,12 @@ configurar para ela desaparecer depois de 2~3 segundos
 
 //item 3 feito, e além de criar bola nova vamos apagar a antiga
 instance_destroy()
+
+/*
+percebemos que funcionou a criação de bolas, mas eladestroi
+todas e reinicia o jogo, para isso não acontecer, vamos criar
+uma variavel para contar a quantidade de bolas na tela
+e enquanto houver bolas deixaremos o jogo continuar
+usaremos novamente o exit, ou seja,caso tenha bolas,pularemos
+o evento de destruição
+*/

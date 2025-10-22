@@ -42,8 +42,13 @@ e caso tire o valor desejado, iremos transformar o sprite no sprite
 que tenha a bola
 */
 
-tipoBloco =  irandom_range(1,14)
+tipoBloco =  irandom_range(1,15)
 
-if tipoBloco >= 13{
+if tipoBloco == 14{
 	sprite_index = sprBlocoBola
+}
+
+//só vira um bloco com vida quando a vida do player estiver abaixo de 3
+if tipoBloco == 15 and global.vidas < 3{
+	sprite_index = sprBlocoVida
 }

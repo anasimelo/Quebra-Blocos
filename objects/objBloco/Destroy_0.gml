@@ -21,3 +21,7 @@ if sprite_index == sprBlocoBola{
 	instance_create_layer(x,y, "Instances", objBola)
 }
 
+if sprite_index == sprBlocoVida{
+	//cria vida
+	instance_create_layer(x,y,"instances", objVidaColetavel)
+}

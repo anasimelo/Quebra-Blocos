@@ -1,12 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"objVida",
+  "%Name":"objRestart",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":13,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"objVida",
+  "name":"objRestart",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -31,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sprVidaCheia",
-    "path":"sprites/sprVidaCheia/sprVidaCheia.yy",
+    "name":"sprRestart",
+    "path":"sprites/sprRestart/sprRestart.yy",
   },
   "spriteMaskId":null,
   "visible":true,

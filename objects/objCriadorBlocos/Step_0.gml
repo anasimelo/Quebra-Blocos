@@ -1,3 +1,6 @@
+if global.isFimJogo{
+	exit
+}
 //Região da criação dos blocos
 #region criar blocos
 	//aqui usaremos assim que a quantidade deles for 0

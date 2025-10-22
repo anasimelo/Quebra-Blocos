@@ -66,9 +66,16 @@ Seja criada uma bolinha acima do player
 */
 
 
-
 //Varivel para validar se está no re/inicio do jogo
 //se a variavel não existir, inicia ela como false
 if ! variable_global_exists("isStart"){
 	global.isStart= false
+}
+
+//Contagem das bolinha
+if variable_global_exists("quantBolinhas"){
+	global.quantBolinhas++	
+}
+else{
+	global.quantBolinhas = 1	
 }

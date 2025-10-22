@@ -1,3 +1,8 @@
+if global.isFimJogo{
+	exit
+}
+
+
 /*
 Primeiro, no inicio do jogo, a bola vai acompanhar o player
 Por enquanto, vamos apenas checar se as direções são iguais a zero
@@ -69,11 +74,11 @@ else{
 		*/
 	//Verificar a colisão na esquerda
 	if place_meeting(x - 3, y,objColisao){
-		//direcaoHorizontal = 1
+		direcaoHorizontal = 1
 	}
 	//Verificar a colisão na direita
 	if place_meeting(x + 3,y, objColisao){
-		//direcaoHorizontal = - 1
+		direcaoHorizontal = - 1
 	}
 	
 	//Verificar colisão acima
@@ -159,48 +164,42 @@ else{
 		//E agora invertemos a direção
 		//Como estavamos na esquerda, agora irá para direita
 		direcaoHorizontal = 1
+		direcaoVertical = sign(direcaoVertical)
 	}
 	
 	// Colisão na direita
 	if place_meeting(x + velocidade,y, objBloco){
 		blocoColidido = instance_place(x + velocidade,y,objBloco)
-		distancia = x - blocoColidido.x
-		
-		if distancia >= -10 and distancia <= 10{
-			direcaoHorizontal= 0.2 * sign(distancia)
-		}
-		else if distancia >= -20 and distancia <= 20 {
-			direcaoHorizontal = 0.5 * sign(distancia)
-		}
-		else if distancia >= -30 and distancia <= 30 {
-			direcaoHorizontal = 1 * sign(distancia)	
-		}
-		else {
-			direcaoHorizontal = 1.2 * sign(distancia)
-		}
+		//distancia = x - blocoColidido.x
 		instance_destroy(blocoColidido)
-		direcaoHorizontal = - 1
+		direcaoHorizontal = 1
+		direcaoVertical = sign(direcaoVertical)
 	}
+		
 	
 	//Colisão encima
 	if place_meeting(x, y - velocidade,objBloco){
 		blocoColidido = instance_place(x,y - velocidade,objBloco)
 		distancia = x -blocoColidido.x
 		
-		if distancia >= -10 and distancia <= 10{
+		if distancia >= -20 and distancia <= 20{
 			direcaoHorizontal= 0.2 * sign(distancia)
+			direcaoVertical = 1.8
 		}
-		else if distancia >= -20 and distancia <= 20 {
+		else if distancia >= -40 and distancia <= 40 {
 			direcaoHorizontal = 0.5 * sign(distancia)
+			direcaoVertical = 1.5
 		}
-		else if distancia >= -30 and distancia <= 30 {
+		else if distancia >= -60 and distancia <= 60 {
 			direcaoHorizontal = 1 * sign(distancia)	
+			direcaoVertical =1
 		}
 		else {
 			direcaoHorizontal = 1.2 * sign(distancia)
+			direcaoVertical = 0.8
 		}
 		instance_destroy(blocoColidido)
-		direcaoVertical = 1
+		//direcaoVertical = 1
 	}
 	
 	//Colisão embaixo
@@ -208,25 +207,27 @@ else{
 		blocoColidido = instance_place(x,y + velocidade,objBloco)
 		distancia = x - blocoColidido.x
 		
-		if distancia >= -10 and distancia <= 10{
+		if distancia >= -20 and distancia <= 20{
 			direcaoHorizontal= 0.2 * sign(distancia)
+			direcaoVertical = -1.8
 		}
-		else if distancia >= -20 and distancia <= 20 {
+		else if distancia >= -40 and distancia <= 40 {
 			direcaoHorizontal = 0.5 * sign(distancia)
+			direcaoVertical = 1.5
 		}
-		else if distancia >= -30 and distancia <= 30 {
+		else if distancia >= -60 and distancia <= 60 {
 			direcaoHorizontal = 1 * sign(distancia)	
+			direcaoVertical = -1
 		}
 		else {
 			direcaoHorizontal = 1.2 * sign(distancia)
+			direcaoVertical = -0.8
 		}
 		instance_destroy(blocoColidido)
-		direcaoVertical = -1
+		//direcaoVertical = -1
 	}
 	//lembrando que o padrão está seguindo os dizeres na colisão a esquerda
-}
-
-/*
+	/*
 o que são regiões?
 é uma forma de organizar o código, de modo que ajuda a identificar
 varios processos parecidos ou relacionados em um mesmo lugar
@@ -282,25 +283,33 @@ a sintax é
 		
 		distancia = x - objPlayer.x
 		
-		if distancia >= -10 and distancia <= 10{
+		if distancia >= -20 and distancia <= 20{
 			direcaoHorizontal= 0.2 * sign(distancia)
+			direcaoVertical = -1.8
 		}
-		else if distancia >= -20 and distancia <= 20 {
+		else if distancia >= -40 and distancia <= 40 {
 			direcaoHorizontal = 0.5 * sign(distancia)
+			direcaoVertical = -1.5
 		}
-		else if distancia >= -30 and distancia <= 30 {
+		else if distancia >= -60 and distancia <= 60 {
 			direcaoHorizontal = 1 * sign(distancia)	
+			direcaoVertical = -1
 		}
 		else {
 			direcaoHorizontal = 1.2 * sign(distancia)
+			direcaoVertical = - 0.8
 		}
 	}
+}
 	    /* podemos fazer isso com o blocos
 		para isso é só copiar essa lógica e trocar o objPlayer
 		pelo Id do bloco,e por enquanto apenas nas condições verticais dos blocos*/
 #endregion
 //No fim soma as direções em suas respectivas variaveis vezes
 //a velocidade
+
+
+
 
 x += direcaoHorizontal * velocidade
 y += direcaoVertical * velocidade

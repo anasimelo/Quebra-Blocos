@@ -1,3 +1,6 @@
+if global.isFimJogo{
+	exit
+}
 /*
 Vamos começar criando a movimentação do player
 Para isto usaremos uma função que retorna verdadeira ou falso a partir

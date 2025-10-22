@@ -1,3 +1,6 @@
+if global.isFimJogo{
+	exit
+}
 /*Assim que terminar vamos descer todos os blocos até
 um chegar na posição que queremos
 a validação vai ser,se não houver bloco nesta posição, continue descendo,e

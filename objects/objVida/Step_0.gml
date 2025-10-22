@@ -1,3 +1,6 @@
+if global.isFimJogo{
+	exit
+}
 /*
 agora, quando as vidas que o player tem forem menores ou iguais ao
 identificador, contara como vidas usadas,caso não,contará como vida cheia
